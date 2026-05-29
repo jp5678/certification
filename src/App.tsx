@@ -233,7 +233,10 @@ function App() {
         return (
           <ReviewNoteView
             progress={progress}
-            onNavigateToModule={handleSelectModule}
+            onNavigateToModule={(moduleId) => {
+              setActiveModuleId(moduleId);
+              setIsQuizMode(true);
+            }}
           />
         );
       case 'stats':
