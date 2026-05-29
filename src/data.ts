@@ -2223,7 +2223,7 @@ export const STUDY_MODULES: StudyModule[] = [
   },
   {
     "id": "sheets_references",
-    "title": "28. 상대 참조와 절대 참조 ($기호 활용)",
+    "title": "13. 상대 참조와 절대 참조 ($기호 활용)",
     "category": "sheets",
     "description": "수식 복사 시 셀 주소의 고정 여부를 결정하는 상대 참조와 절대 참조($)의 차이 이해",
     "iconName": "Hash",
@@ -2305,7 +2305,7 @@ export const STUDY_MODULES: StudyModule[] = [
   },
   {
     "id": "sheets_protection",
-    "title": "29. 시트 및 범위 보호 (권한 제어)",
+    "title": "14. 시트 및 범위 보호 (권한 제어)",
     "category": "sheets",
     "description": "공동 작업 시 특정 셀 범위나 전체 워크시트를 다른 협업자가 수정하지 못하도록 권한 설정",
     "iconName": "Shield",
@@ -2387,7 +2387,7 @@ export const STUDY_MODULES: StudyModule[] = [
   },
   {
     "id": "sheets_data_clean",
-    "title": "30. 데이터 확인, 데이터 정리 및 데이터 추출",
+    "title": "15. 데이터 확인, 데이터 정리 및 데이터 추출",
     "category": "sheets",
     "description": "입력 오류 방지를 위한 데이터 확인(드롭다운) 설정 및 중복 데이터 정리, 특정 조건 데이터 추출",
     "iconName": "Filter",
