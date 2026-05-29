@@ -298,7 +298,7 @@ function App() {
       <footer className="w-full no-print text-center text-xs" style={{ backgroundColor: 'var(--slate-100)', borderTop: '1px solid var(--slate-200)', padding: '24px 0', color: 'var(--slate-500)', marginTop: '48px' }}>
         <div className="max-w-7xl" style={{ padding: '0 16px' }}>
           <p>© 2026 제프리 교수 | All rights reserved.</p>
-          <p className="mt-1 text-[10px] text-slate-400" style={{ marginTop: '4px', margin: 0 }}>본 플랫폼의 콘텐츠는 AI 기반 디지털리터러시 역량 강화를 목적으로 합니다.</p>
+          <p className="mt-1 text-[10px] text-slate-400" style={{ marginTop: '4px', margin: 0 }}>본 플랫폼의 콘텐츠는 AI 기반으로 생성되어 배포되었으니 확인 및 검토 과정이 필요합니다.</p>
         </div>
       </footer>
     </div>

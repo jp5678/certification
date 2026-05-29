@@ -53,8 +53,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           <h2 className="text-2xl md:text-3xl font-extrabold mb-2" style={{ color: 'var(--blue-900)' }}>
             안녕하세요, {progress.userName}님! 🩺👋
           </h2>
-          <p className="text-slate-500 text-sm md:text-base" style={{ maxWidth: '580px', margin: 0 }}>
-            임상 간호 및 지역사회 간호 실무에서 필수적인 **구글 워크스페이스 디지털 협업 능력**과 **스프레드시트 데이터 분석 역량**을 키워 실무형 에이스 간호사로 성장해 보세요!
+          <p className="text-slate-500 text-sm md:text-base" style={{ maxWidth: '640px', margin: 0 }}>
+            간호학과 학생들의 디지털 리터러시 역량 강화를 위한 Google Workspace for Education & Google Spreadsheet 자가학습 플랫폼에 오신 것을 환영합니다.
           </p>
           <div className="flex flex-wrap gap-2 mt-4">
             <span className="welcome-badge bg-blue-badge">
