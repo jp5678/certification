@@ -59,7 +59,7 @@ export const CertificateView: React.FC<CertificateViewProps> = ({
 
             <h3 className="text-xl font-black text-slate-800 mb-2" style={{ margin: 0 }}>🔒 수료증이 아직 잠겨 있습니다</h3>
             <p className="text-xs text-slate-500 leading-relaxed mb-8 max-w-md mx-auto" style={{ margin: '8px auto 24px auto' }}>
-              수료증을 발급받기 위해서는 전체 27개 자가학습 모듈을 모두 이수하고, 모든 퀴즈에서 각각 80점 이상의 합격 성적을 달성하셔야 합니다.
+              수료증을 발급받기 위해서는 전체 {totalCount}개 자가학습 모듈을 모두 이수하고, 모든 퀴즈에서 각각 80점 이상의 합격 성적을 달성하셔야 합니다.
             </p>
 
             {/* 현재 조건 충족 현황 */}
