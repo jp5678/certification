@@ -51,7 +51,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       <div className="glass shadow-premium welcome-banner p-5 md:p-6 mb-6">
         <div>
           <h2 className="text-2xl md:text-3xl font-extrabold mb-2" style={{ color: 'var(--blue-900)' }}>
-            안녕하세요, 정종필님! 🩺👋
+            안녕하세요, {progress.userName}님! 🩺👋
           </h2>
           <p className="text-slate-500 text-sm md:text-base" style={{ maxWidth: '640px', margin: 0 }}>
             간호학과 학생들의 디지털 리터러시 역량 강화를 위한 Google Workspace for Education & Google Spreadsheet 자가학습 플랫폼에 오신 것을 환영합니다.
