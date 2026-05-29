@@ -295,6 +295,9 @@ p {
 
 /* 1. Header & Navigation */
 .header-container {
+  background-color: var(--color-bg-surface) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   border-bottom: 1px solid rgba(226, 232, 240, 0.8);
   position: sticky;
   top: 0;
