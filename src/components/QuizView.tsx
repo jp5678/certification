@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Icons from 'lucide-react';
-import type { StudyModule, WrongQuizLog } from '../types';
+import type { StudyModule, WrongQuizLog, Quiz } from '../types';
 
 interface QuizViewProps {
   module: StudyModule;
@@ -8,18 +8,54 @@ interface QuizViewProps {
   onQuizFinished: (score: number, wrongQuizzes: Omit<WrongQuizLog, 'solvedAt'>[]) => void;
 }
 
+// 피셔-예이츠 알고리즘을 사용한 보기 셔플 및 정답 인덱스 정밀 추적 갱신 도구
+const shuffleQuiz = (quiz: Quiz): Quiz => {
+  const shuffledOptions = [...quiz.options];
+  const originalAnswerText = quiz.options[quiz.answer];
+
+  // Fisher-Yates Shuffle
+  for (let i = shuffledOptions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
+  }
+
+  // 셔플된 배열에서 원래 정답 텍스트의 새로운 인덱스 추적
+  const newAnswerIndex = shuffledOptions.indexOf(originalAnswerText);
+
+  return {
+    ...quiz,
+    options: shuffledOptions,
+    answer: newAnswerIndex
+  };
+};
+
 export const QuizView: React.FC<QuizViewProps> = ({
   module,
   onBackToStudy,
   onQuizFinished,
 }) => {
+  const [shuffledQuizzes, setShuffledQuizzes] = useState<Quiz[]>([]);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const [score, setScore] = useState(0);
   const [wrongLogs, setWrongLogs] = useState<Omit<WrongQuizLog, 'solvedAt'>[]>([]);
 
-  const quizList = module.quizzes;
+  // 컴포넌트 마운트 및 모듈 전환 시 문제 목록 무작위 셔플링
+  useEffect(() => {
+    if (module && module.quizzes) {
+      const prepared = module.quizzes.map(shuffleQuiz);
+      setShuffledQuizzes(prepared);
+      // 상태값 초기화
+      setCurrentQuizIndex(0);
+      setSelectedOption(null);
+      setIsAnswered(false);
+      setScore(0);
+      setWrongLogs([]);
+    }
+  }, [module]);
+
+  const quizList = shuffledQuizzes;
   const currentQuiz = quizList[currentQuizIndex];
 
   const handleOptionSelect = (optionIdx: number) => {
