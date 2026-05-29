@@ -174,18 +174,7 @@ function App() {
     setIsQuizMode(false);
   };
 
-  // 복습을 통해 정답을 맞추어 오답노트에서 문항 제외
-  const handleRemoveWrongQuiz = (moduleId: string, quizId: string) => {
-    setProgress((prev) => {
-      const updatedWrongs = prev.wrongQuizzes.filter(
-        (w) => !(w.moduleId === moduleId && w.quizId === quizId)
-      );
-      return {
-        ...prev,
-        wrongQuizzes: updatedWrongs,
-      };
-    });
-  };
+
 
   // 최종 수료증 수동/자동 발행 확정
   const handleIssueCertificate = () => {
@@ -244,7 +233,7 @@ function App() {
         return (
           <ReviewNoteView
             progress={progress}
-            onRemoveWrongQuiz={handleRemoveWrongQuiz}
+            onNavigateToModule={handleSelectModule}
           />
         );
       case 'stats':

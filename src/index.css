@@ -85,6 +85,79 @@
   font-weight: 400;
 }
 
+/* 다크 테마(블랙 모드) 설정 */
+html[data-theme='dark'] {
+  /* 다크 테마용 Semantic Tokens */
+  --color-primary: var(--blue-100);
+  --color-primary-hover: var(--blue-600);
+  --color-secondary: var(--teal-500);
+  --color-secondary-hover: var(--teal-100);
+  --color-accent: var(--teal-500);
+  --color-bg-base: var(--slate-950);
+  --color-bg-surface: var(--slate-900);
+  --color-text-main: var(--slate-100);
+  --color-text-muted: var(--slate-400);
+  --color-border: var(--slate-800);
+  
+  /* Literal Tokens Override */
+  --slate-50: #090d16;
+  --slate-100: #1e293b;
+  --slate-200: #334155;
+  --slate-300: #475569;
+  --slate-400: #94a3b8;
+  --slate-500: #cbd5e1;
+  --slate-700: #f1f5f9;
+  --slate-800: #f8fafc;
+  
+  --blue-50: rgba(37, 99, 235, 0.12);
+  --blue-100: rgba(37, 99, 235, 0.25);
+  
+  --teal-50: rgba(13, 148, 136, 0.12);
+  --teal-100: rgba(13, 148, 136, 0.25);
+
+  --gold-50: rgba(245, 158, 11, 0.1);
+  --gold-100: rgba(245, 158, 11, 0.2);
+
+  --red-50: rgba(239, 68, 68, 0.12);
+  --red-100: rgba(239, 68, 68, 0.25);
+
+  --emerald-50: rgba(16, 185, 129, 0.12);
+  --emerald-100: rgba(16, 185, 129, 0.25);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  --shadow-premium: 
+    0 1px 3px rgba(0,0,0,0.2),
+    0 8px 24px rgba(0, 0, 0, 0.3),
+    0 16px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* 다크 테마에서 하드코딩된 white 배경 덮어쓰기 */
+html[data-theme='dark'] .summary-card,
+html[data-theme='dark'] .module-card,
+html[data-theme='dark'] .study-card,
+html[data-theme='dark'] .quiz-container-box,
+html[data-theme='dark'] .option-btn:not(.selected):not(.correct):not(.incorrect),
+html[data-theme='dark'] .review-card-item,
+html[data-theme='dark'] .checklist-label:not(.checked),
+html[data-theme='dark'] .user-badge {
+  background-color: var(--color-bg-surface) !important;
+  border-color: var(--color-border) !important;
+}
+
+html[data-theme='dark'] .tab-button.active,
+html[data-theme='dark'] .filter-btn.active {
+  background-color: var(--color-bg-surface) !important;
+  color: var(--color-primary) !important;
+}
+
+html[data-theme='dark'] .glass {
+  background: rgba(15, 23, 42, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
 /* 2. 전역 스타일 및 리셋 */
 * {
   box-sizing: border-box;
@@ -98,6 +171,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  transition: background-color var(--transition-normal), color var(--transition-normal), border-color var(--transition-normal);
 }
 
 button, input, select, textarea {

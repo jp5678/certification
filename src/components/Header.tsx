@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Icons from 'lucide-react';
 import type { UserProgress } from '../types';
 
@@ -17,6 +17,26 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [tempName, setTempName] = useState(progress.userName);
+
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const saved = localStorage.getItem('THEME_MODE');
+    if (saved === 'light' || saved === 'dark') {
+      return saved;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('THEME_MODE', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -113,6 +133,25 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
             )}
           </div>
+
+          {/* 테마 토글 버튼 */}
+          <button
+            onClick={toggleTheme}
+            className="user-badge p-2"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '34px',
+              height: '34px',
+              padding: 0,
+              cursor: 'pointer',
+              color: 'var(--slate-500)'
+            }}
+            title={theme === 'light' ? '블랙 모드로 전환' : '라이트 모드로 전환'}
+          >
+            {theme === 'light' ? <Icons.Moon size={16} /> : <Icons.Sun size={16} />}
+          </button>
         </div>
 
       </div>
