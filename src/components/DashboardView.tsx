@@ -283,10 +283,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       <div className="roadmap-section mb-12">
         <div className="roadmap-header">
           <h3 className="text-lg font-bold flex items-center gap-2 text-slate-800" style={{ margin: 0 }}>
-            🩺 간호 임상 실무 자가학습 로드맵
+            🩺 제프리 교수의 AI기반 디지털 리터러시 역량 강화 자가학습 플랫폼
           </h3>
           <p className="text-xs text-slate-400" style={{ margin: 0 }}>
-            환자 입원 수속부터 퇴원 및 외래 교육까지 이어지는 7단계 간호 임상 실무 흐름에 기반한 직관적인 학습 노선도입니다. (단계를 눌러 바로 학습할 수 있습니다)
+            환자 입원 수속부터 퇴원 및 외래 교육까지 이어지는 모듈별 간호 임상 실무 흐름에 기반한 직관적인 학습 노선도입니다. (모듈을 클릭해서 바로 학습할 수 있습니다)
           </p>
         </div>
 
