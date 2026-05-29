@@ -89,50 +89,62 @@
 /* 다크 테마(블랙 모드) 설정 */
 html[data-theme='dark'] {
   /* 다크 테마용 Semantic Tokens */
-  --color-primary: var(--blue-100);
-  --color-primary-hover: var(--blue-600);
-  --color-secondary: var(--teal-500);
-  --color-secondary-hover: var(--teal-100);
-  --color-accent: var(--teal-500);
-  --color-bg-base: var(--slate-950);
-  --color-bg-surface: var(--slate-900);
-  --color-text-main: var(--slate-100);
-  --color-text-muted: var(--slate-400);
-  --color-border: var(--slate-800);
+  --color-primary: #e0e7ff;
+  --color-primary-hover: #2563eb;
+  --color-secondary: #14b8a6;
+  --color-secondary-hover: #ccfbf1;
+  --color-accent: #14b8a6;
+  --color-bg-base: #090d16;
+  --color-bg-surface: #121824;
+  --color-text-main: #f1f5f9;
+  --color-text-muted: #94a3b8;
+  --color-border: #1e293b;
   
-  /* Literal Tokens Override */
-  --slate-50: #090d16;
-  --slate-100: #1e293b;
-  --slate-200: #2d3748;
-  --slate-300: #4a5568;
-  --slate-400: #a0aec0;
-  --slate-500: #cbd5e1;
-  --slate-700: #f1f5f9;
-  --slate-800: #f8fafc;
+  /* 웰컴 배너 및 타이틀 등에서 style={{ color: 'var(--blue-900)' }} 처럼 인라인 스타일이나 변수를 직접 호출하는 경우 대비 */
+  --blue-950: #f8fafc;
+  --blue-900: #cbd5e1;
+  --blue-800: #cbd5e1;
+  --blue-700: #94a3b8;
+  --blue-600: #38bdf8;
+  --blue-50: rgba(56, 189, 248, 0.12);
+  --blue-100: rgba(56, 189, 248, 0.22);
   
-  --blue-50: rgba(37, 99, 235, 0.12);
-  --blue-100: rgba(37, 99, 235, 0.25);
-  
-  --teal-50: rgba(13, 148, 136, 0.12);
-  --teal-100: rgba(13, 148, 136, 0.25);
+  --teal-900: #e2fbf7;
+  --teal-600: #2dd4bf;
+  --teal-500: #14b8a6;
+  --teal-50: rgba(45, 212, 191, 0.12);
+  --teal-100: rgba(45, 212, 191, 0.22);
 
-  --gold-50: rgba(245, 158, 11, 0.1);
-  --gold-100: rgba(245, 158, 11, 0.2);
+  --slate-900: #121824;
+  --slate-800: #e2e8f0;     /* 텍스트용 slate-800을 밝은 컬러로 변경 */
+  --slate-700: #cbd5e1;     /* 텍스트용 slate-700을 밝은 컬러로 변경 */
+  --slate-600: #a0aec0;
+  --slate-500: #cbd5e1;
+  --slate-400: #cbd5e1;
+  --slate-300: #e2e8f0;
+  --slate-200: #1e293b;     /* 보더용 slate-200은 어두운 보더로 변경 */
+  --slate-100: #1e293b;     /* 백그라운드용 slate-100은 어둡게 변경 */
+  --slate-50: #0f172a;      /* 백그라운드용 slate-50은 어둡게 변경 */
+  --slate-950: #090d16;
+
+  --gold-900: #fef3c7;
+  --gold-50: rgba(245, 158, 11, 0.12);
+  --gold-100: rgba(245, 158, 11, 0.22);
 
   --red-50: rgba(239, 68, 68, 0.12);
-  --red-100: rgba(239, 68, 68, 0.25);
+  --red-100: rgba(239, 68, 68, 0.22);
 
   --emerald-50: rgba(16, 185, 129, 0.12);
-  --emerald-100: rgba(16, 185, 129, 0.25);
+  --emerald-100: rgba(16, 185, 129, 0.22);
 
   /* Shadows */
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
   --shadow-premium: 
-    0 1px 3px rgba(0,0,0,0.2),
-    0 8px 24px rgba(0, 0, 0, 0.3),
-    0 16px 32px rgba(0, 0, 0, 0.3);
+    0 1px 3px rgba(0,0,0,0.3),
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    0 16px 32px rgba(0, 0, 0, 0.4);
 }
 
 /* ==========================================================
