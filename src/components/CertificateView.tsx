@@ -32,8 +32,19 @@ export const CertificateView: React.FC<CertificateViewProps> = ({
       onIssueCertificate();
     }
 
+    // 원래의 document.title 백업
+    const originalTitle = document.title;
+
+    // PDF/인쇄 파일명용 임시 타이틀 변경
+    document.title = "제프리 교수의 AI기반 디지털 리터러시 역량 강화 자가학습 수료증";
+
     // 프린트 구동 (CSS @media print 에 정의된 최적화로 인쇄됨)
     window.print();
+
+    // 인쇄 창 호출 후 원래 타이틀로 원복 (브라우저 연산 완료 대기)
+    setTimeout(() => {
+      document.title = originalTitle;
+    }, 500);
   };
 
   const getFormattedDate = () => {
