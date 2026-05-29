@@ -1018,9 +1018,23 @@ p {
     color: #000000 !important;
     margin: 0 !important;
     padding: 0 !important;
+    width: 297mm !important; /* A4 가로 물리 크기 고정 */
+    height: 210mm !important; /* A4 세로 물리 크기 고정 */
+    overflow: hidden !important;
+  }
+
+  /* React 루트 및 조상 엘리먼트들의 간섭을 방지하고 레이아웃을 static으로 평탄화 */
+  #root, 
+  #root > div, 
+  main, 
+  .max-w-5xl, 
+  .fade-in {
+    display: block !important;
     width: 100% !important;
     height: 100% !important;
-    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: static !important;
   }
 
   /* React 루트 자체는 표시되어야 하므로 제외하고, no-print 관련 및 불필요 요소 완전 숨김 */
@@ -1032,15 +1046,14 @@ p {
     display: none !important;
   }
 
-  /* 인쇄할 실제 수료증 대상 컨테이너 최적화 (A4 Landscape 절대 비율 및 크기 반영) */
+  /* 인쇄할 실제 수료증 대상 컨테이너 최적화 (A4 물리 규격 기준 절대적 가로세로 중앙 정렬) */
   .print-container {
     display: block !important;
-    position: fixed !important;
-    left: 50% !important;
-    top: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    width: 277mm !important; /* A4 가로 297mm에서 좌우 여백 10mm씩 공제 */
-    height: 190mm !important; /* A4 세로 210mm에서 상하 여백 10mm씩 공제 */
+    position: absolute !important;
+    left: 10mm !important; /* 좌측 10mm 마진 */
+    top: 10mm !important;  /* 상단 10mm 마진 */
+    width: 277mm !important; /* 297mm - 20mm = 277mm (가로 정확히 중앙 정렬) */
+    height: 190mm !important; /* 210mm - 20mm = 190mm (세로 정확히 중앙 정렬) */
     aspect-ratio: none !important; /* 인라인 종횡비 강제 해제 */
     margin: 0 !important;
     padding: 12mm !important; /* 안쪽 여백 축소하여 여유 공간 확보 */
