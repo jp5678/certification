@@ -126,21 +126,14 @@ export const CertificateView: React.FC<CertificateViewProps> = ({
 
             {/* 예시 수료증 렌더링 (축소 및 연한 워터마크 효과) */}
             <div style={{ position: 'relative', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-              
-              {/* 실제 디자인과 완전히 동일하지만 예시 정보가 들어간 프레임 */}
-              <div className="print-container bg-white border-[12px] border-double border-blue-900 rounded-xl p-6 shadow-premium relative mx-auto overflow-hidden opacity-75"
-                   style={{ 
-                     width: '50%',
-                     minWidth: '320px',
-                     aspectRatio: '1.414 / 1', 
-                     backgroundImage: 'radial-gradient(circle, rgba(238, 242, 255, 0.2) 0%, rgba(255, 255, 255, 1) 100%)',
-                     boxSizing: 'border-box',
-                     border: '12px double var(--blue-900)',
-                     borderRadius: '12px',
-                     filter: 'grayscale(15%)'
-                   }}>
-
-                {/* 워터마크 오버레이가 수료증 예시 영역 내부에만 얹히도록 프레임 내부로 이동 */}
+              <div style={{ position: 'relative', width: '50%', minWidth: '320px', margin: '0 auto' }}>
+                <img 
+                  src={`${import.meta.env.BASE_URL}certificate_preview.png`} 
+                  alt="수료증 디자인 예시" 
+                  className="rounded-xl shadow-premium border border-slate-200"
+                  style={{ width: '100%', height: 'auto', display: 'block', opacity: 0.85 }} 
+                />
+                {/* 워터마크 오버레이를 이미지 위에 은은하게 덮어 예시 표시 강조 */}
                 <div style={{ 
                   position: 'absolute', 
                   inset: 0, 
@@ -152,87 +145,18 @@ export const CertificateView: React.FC<CertificateViewProps> = ({
                   justifyContent: 'center'
                 }}>
                   <span style={{ 
-                    fontSize: '3rem', 
+                    fontSize: '2.5rem', 
                     fontWeight: 900, 
-                    color: 'rgba(239, 68, 68, 0.08)', 
+                    color: 'rgba(239, 68, 68, 0.09)', 
                     transform: 'rotate(-25deg)', 
-                    letterSpacing: '0.3em',
-                    border: '6px solid rgba(239, 68, 68, 0.08)',
-                    padding: '12px 24px',
-                    borderRadius: '12px',
+                    letterSpacing: '0.25em',
+                    border: '5px solid rgba(239, 68, 68, 0.09)',
+                    padding: '8px 16px',
+                    borderRadius: '8px',
                     textTransform: 'uppercase'
                   }}>
                     예시 (PREVIEW)
                   </span>
-                </div>
-
-                <div className="border border-amber-400/80 w-full h-full p-6 flex flex-col justify-between items-center text-center relative z-10"
-                     style={{ border: '1px solid rgba(245, 158, 11, 0.8)', height: '100%' }}>
-                  
-                  {/* 타이틀 */}
-                  <div className="mt-4" style={{ marginTop: '16px' }}>
-                    <div className="w-10 h-0.5 bg-amber-400 mx-auto mb-2" style={{ width: '40px', height: '2px', backgroundColor: 'var(--gold-400)', margin: '0 auto 8px auto' }}></div>
-                    <h1 className="text-2xl md:text-3xl font-extrabold tracking-[0.2em] text-blue-900 uppercase mb-1" style={{ margin: 0, letterSpacing: '0.2em' }}>
-                      수 료 증
-                    </h1>
-                    <span className="text-[8px] font-bold text-amber-500 uppercase tracking-[0.35em] block" style={{ fontSize: '8px', letterSpacing: '0.35em', color: 'var(--gold-500)' }}>
-                      Certificate of Completion
-                    </span>
-                  </div>
-
-                  {/* 인적 사항 */}
-                  <div className="my-3" style={{ margin: '16px 0' }}>
-                    <h2 className="text-base md:text-lg font-bold text-slate-800 flex items-center gap-1-5 justify-center mb-1" style={{ margin: 0 }}>
-                      성 명: <span className="underline px-2" style={{ textDecoration: 'underline', textDecorationColor: 'var(--gold-400)', textDecorationThickness: '2px', textUnderlineOffset: '4px' }}>{progress.userName || '홍 길 동 (예시)'}</span>
-                    </h2>
-                    <p className="text-xs text-slate-500 font-semibold" style={{ margin: '4px 0 0 0' }}>소속: 청암대학교 간호학과</p>
-                  </div>
-
-                  {/* 본문 */}
-                  <div className="max-w-xl px-4" style={{ maxWidth: '576px' }}>
-                    <p className="text-xs md:text-sm text-slate-600 leading-relaxed text-justify font-medium" style={{ textIndent: '10px', margin: 0 }}>
-                      위 사람은 Google Workspace for Education & Google Spreadsheet 간호 실무 융합형 디지털 리터러시 자가학습 과정을 성실히 이수하고 수료 기준 평가 과정을 우수하게 통과하였으므로 이 수료증을 발급해 드립니다.
-                    </p>
-                  </div>
-
-                  {/* 엠블럼 */}
-                  <div className="my-1 select-none relative w-20 h-20 flex items-center justify-center" style={{ position: 'relative', width: '80px', height: '80px', margin: '4px 0' }}>
-                    <div className="absolute w-16 h-16 rounded-full border-2 border-double border-amber-400 bg-amber-500/10 flex items-center justify-center"
-                         style={{ position: 'absolute', width: '64px', height: '64px', borderRadius: '9999px', border: '2px double var(--gold-400)', backgroundColor: 'rgba(245, 158, 11, 0.1)' }}>
-                      <div className="text-[6px] font-black text-amber-600 uppercase tracking-widest text-center leading-none" style={{ fontSize: '6px' }}>
-                        JEFFREY<br />PROF<br /><span style={{ fontSize: '5px' }}>APPROVED</span>
-                      </div>
-                    </div>
-                    <div className="absolute bottom-0-5 w-10 h-5 bg-amber-400/20 rotate-[35deg] -z-10 rounded-sm" style={{ position: 'absolute', transform: 'rotate(35deg)', zIndex: -10, backgroundColor: 'rgba(245, 158, 11, 0.2)' }}></div>
-                    <div className="absolute bottom-0-5 w-10 h-5 bg-amber-400/20 -rotate-[35deg] -z-10 rounded-sm" style={{ position: 'absolute', transform: 'rotate(-35deg)', zIndex: -10, backgroundColor: 'rgba(245, 158, 11, 0.2)' }}></div>
-                  </div>
-
-                  {/* 하단 서명 */}
-                  <div className="w-full flex justify-between items-end px-4 mb-1" style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'flex-end', padding: '0 36px' }}>
-                    <div className="text-left" style={{ textAlign: 'left' }}>
-                      <span className="text-[9px] text-slate-400 block font-semibold" style={{ fontSize: '9px' }}>발급일자</span>
-                      <span className="text-xs font-bold text-slate-600">2026년 05월 29일</span>
-                    </div>
-
-                    <div className="text-right flex items-center gap-3 relative" style={{ display: 'flex', alignItems: 'center', gap: '12px', position: 'relative' }}>
-                      <div className="text-right" style={{ textAlign: 'right' }}>
-                        <span className="text-sm font-black text-blue-900 tracking-wider">
-                          담당교수 : 제프리 교수
-                        </span>
-                      </div>
-                      {/* 교수 인장(직인) 첨부 이미지 렌더링 */}
-                      <img src={`${import.meta.env.BASE_URL}jeffrey_stamp.png`} 
-                           alt="제프리 교수 직인" 
-                           className="w-10 h-10 object-contain transform rotate-12 select-none"
-                           style={{ 
-                             width: '40px',
-                             height: '40px',
-                             transform: 'rotate(12deg)',
-                             position: 'relative',
-                             top: '-2px'
-                           }} />
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
