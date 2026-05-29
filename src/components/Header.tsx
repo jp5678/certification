@@ -32,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({
         
         {/* 로고 & 타이틀 */}
         <div className="logo-section" style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-          <img src="/jeffrey_logo.png" 
+          <img src={`${import.meta.env.BASE_URL}jeffrey_logo.png`} 
                alt="제프리 교수 로고" 
                className="w-12 h-12 rounded-full border-2 border-teal-500 object-cover shadow-sm select-none"
                style={{ 

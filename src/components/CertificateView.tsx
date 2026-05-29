@@ -210,7 +210,7 @@ export const CertificateView: React.FC<CertificateViewProps> = ({
                         </span>
                       </div>
                       {/* 교수 인장(직인) 첨부 이미지 렌더링 */}
-                      <img src="/jeffrey_stamp.png" 
+                      <img src={`${import.meta.env.BASE_URL}jeffrey_stamp.png`} 
                            alt="제프리 교수 직인" 
                            className="w-10 h-10 object-contain transform rotate-12 select-none"
                            style={{ 
@@ -323,7 +323,7 @@ export const CertificateView: React.FC<CertificateViewProps> = ({
                     </span>
                   </div>
                   {/* 교수 인장(직인) 첨부 이미지 렌더링 */}
-                  <img src="/jeffrey_stamp.png" 
+                  <img src={`${import.meta.env.BASE_URL}jeffrey_stamp.png`} 
                        alt="제프리 교수 직인" 
                        className="w-14 h-14 object-contain transform rotate-12 select-none"
                        style={{ 
