@@ -9,6 +9,12 @@ import { ReviewNoteView } from './components/ReviewNoteView';
 import { StatsView } from './components/StatsView';
 import { CertificateView } from './components/CertificateView';
 
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
 // 로컬 스토리지 키 정의
 const LOCAL_STORAGE_KEY = 'NURSE_EDU_PLATFORM_PROGRESS_V1';
 
@@ -38,10 +44,55 @@ function App() {
   const [activeModuleId, setActiveModuleId] = useState<string | null>(null);
   const [isQuizMode, setIsQuizMode] = useState<boolean>(false);
 
+  const activeModule = STUDY_MODULES.find((m) => m.id === activeModuleId);
+
   // 진행 상태가 변경될 때마다 로컬 스토리지에 자동 저장
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(progress));
   }, [progress]);
+
+  // --- 구글 애널리틱스(GA4) 가상 페이지 뷰 추적 ---
+  useEffect(() => {
+    if (typeof window.gtag !== 'function') return;
+
+    let pagePath = `/${currentTab}`;
+    let pageTitle = '';
+
+    if (activeModuleId && activeModule) {
+      if (isQuizMode) {
+        pagePath = `/study/${activeModuleId}/quiz`;
+        pageTitle = `퀴즈: ${activeModule.title}`;
+      } else {
+        pagePath = `/study/${activeModuleId}`;
+        pageTitle = `학습: ${activeModule.title}`;
+      }
+    } else {
+      switch (currentTab) {
+        case 'dashboard':
+          pageTitle = '대시보드';
+          break;
+        case 'review':
+          pageTitle = '오답노트';
+          break;
+        case 'stats':
+          pageTitle = '나의 통계';
+          break;
+        case 'certificate':
+          pageTitle = '수료증 발급';
+          break;
+        default:
+          pageTitle = '대시보드';
+      }
+    }
+
+    // 가상 페이지 뷰 데이터 전송
+    window.gtag('config', 'G-XXXXXXXXXX', {
+      page_path: pagePath,
+      page_title: pageTitle,
+    });
+
+    console.log(`[GA4] Page View Tracked: ${pagePath} - ${pageTitle}`);
+  }, [currentTab, activeModuleId, isQuizMode, activeModule]);
 
   // --- 콜백 제어 기능 ---
 
@@ -74,7 +125,17 @@ function App() {
 
   // 퀴즈 응시 완료
   const handleQuizFinished = (score: number, newWrongs: Omit<WrongQuizLog, 'solvedAt'>[]) => {
-    if (!activeModuleId) return;
+    if (!activeModuleId || !activeModule) return;
+
+    // GA4 퀴즈 완료 이벤트 전송
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'quiz_complete', {
+        module_id: activeModuleId,
+        module_title: activeModule.title,
+        score: score,
+        pass: score >= 80 ? 'pass' : 'fail',
+      });
+    }
 
     setProgress((prev) => {
       // 최고 점수 갱신
@@ -140,6 +201,15 @@ function App() {
   // 최종 수료증 수동/자동 발행 확정
   const handleIssueCertificate = () => {
     if (progress.certifiedAt) return;
+
+    // GA4 수료증 발급 이벤트 전송
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'issue_certificate', {
+        user_name: progress.userName,
+        issued_at: new Date().toISOString(),
+      });
+    }
+
     setProgress((prev) => ({
       ...prev,
       certifiedAt: new Date().toISOString(),
@@ -147,8 +217,6 @@ function App() {
   };
 
   // --- 현재 렌더링할 뷰 계산 ---
-  const activeModule = STUDY_MODULES.find((m) => m.id === activeModuleId);
-
   const renderContent = () => {
     // 1. 퀴즈 모드 활성화 시
     if (activeModuleId && activeModule && isQuizMode) {
