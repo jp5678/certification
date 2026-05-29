@@ -6,7 +6,6 @@ interface StudyViewProps {
   module: StudyModule;
   onBackToDashboard: () => void;
   onStartQuiz: () => void;
-  onCompleteWithoutQuiz: () => void;
   isCompleted: boolean;
 }
 
@@ -14,7 +13,6 @@ export const StudyView: React.FC<StudyViewProps> = ({
   module,
   onBackToDashboard,
   onStartQuiz,
-  onCompleteWithoutQuiz,
   isCompleted,
 }) => {
   const [checkedSteps, setCheckedSteps] = useState<Record<number, boolean>>({});
@@ -80,21 +78,11 @@ export const StudyView: React.FC<StudyViewProps> = ({
             </div>
           </div>
 
-          <div className="mt-8 pt-6 flex items-center justify-between flex-wrap gap-4" style={{ borderTop: '1px solid var(--slate-100)' }}>
-            <div className="flex items-center gap-2 text-slate-400 text-xs">
-              <Icons.Info size={14} />
-              <span>실습 내용을 차근차근 따라 한 뒤 퀴즈를 치러보세요.</span>
+          <div className="mt-8 pt-6 flex items-center justify-center" style={{ borderTop: '1px solid var(--slate-100)' }}>
+            <div className="flex items-center gap-2 text-slate-400 text-xs text-center justify-center">
+              <Icons.Info size={14} className="text-teal-600 animate-pulse" />
+              <span className="font-semibold">실습을 차근차근 진행하신 후 아래의 [실무 퀴즈 풀기 시작] 버튼을 눌러 평가를 완료해 주세요. (80점 이상 획득 시 이수 승인)</span>
             </div>
-            <button
-              onClick={onCompleteWithoutQuiz}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${
-                isCompleted 
-                  ? 'bg-emerald-50 text-emerald-600 border-emerald-200' 
-                  : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50'
-              }`}
-            >
-              {isCompleted ? '✓ 학습 완료 처리됨' : '퀴즈 없이 학습 완료만 체크'}
-            </button>
           </div>
         </div>
 

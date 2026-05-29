@@ -110,18 +110,7 @@ function App() {
     setIsQuizMode(false);
   };
 
-  // 퀴즈 없이 자가 학습만 완료 처리
-  const handleCompleteWithoutQuiz = () => {
-    if (!activeModuleId) return;
-    
-    setProgress((prev) => {
-      if (prev.completedModules.includes(activeModuleId)) return prev;
-      return {
-        ...prev,
-        completedModules: [...prev.completedModules, activeModuleId],
-      };
-    });
-  };
+
 
   // 퀴즈 응시 완료
   const handleQuizFinished = (score: number, newWrongs: Omit<WrongQuizLog, 'solvedAt'>[]) => {
@@ -236,7 +225,6 @@ function App() {
           module={activeModule}
           onBackToDashboard={() => setActiveModuleId(null)}
           onStartQuiz={() => setIsQuizMode(true)}
-          onCompleteWithoutQuiz={handleCompleteWithoutQuiz}
           isCompleted={progress.completedModules.includes(activeModuleId)}
         />
       );
