@@ -140,21 +140,14 @@ function App() {
         updatedCompleted.push(activeModuleId);
       }
 
-      // 오답 리스트 추가 (타임스탬프 얹기)
+      // 오답 리스트 갱신: 현재 응시한 모듈의 기존 오답을 모두 제거한 후, 이번에 새로 틀린 오답만 추가합니다.
+      // 이를 통해 이번에 맞춘 문제는 오답노트에서 자동으로 제거됩니다.
+      let updatedWrongs = prev.wrongQuizzes.filter((w) => w.moduleId !== activeModuleId);
       const solvedAt = new Date().toISOString();
-      const updatedWrongs = [...prev.wrongQuizzes];
 
       newWrongs.forEach((wrong) => {
-        // 이미 동일한 퀴즈가 적재되어 있다면 중복 방지하고 덮어씀
-        const existingIdx = updatedWrongs.findIndex(
-          (w) => w.moduleId === wrong.moduleId && w.quizId === wrong.quizId
-        );
         const logEntry: WrongQuizLog = { ...wrong, solvedAt };
-        if (existingIdx > -1) {
-          updatedWrongs[existingIdx] = logEntry;
-        } else {
-          updatedWrongs.push(logEntry);
-        }
+        updatedWrongs.push(logEntry);
       });
 
       // 만약 수료 조건을 충족했고 아직 발급일자가 없다면 자동 세팅

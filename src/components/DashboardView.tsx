@@ -333,10 +333,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   )}
                   {isActive && <div className="roadmap-pulse-ring"></div>}
                 </div>
-                <div className="roadmap-node-title">
-                  {m.title.replace(/^\d+\.\s*/, '')}
+                <div className="roadmap-node-title" style={{ whiteSpace: 'nowrap', fontSize: '0.7rem', fontWeight: 800 }}>
+                  {m.title.split(' (')[0].replace(/^\d+\.\s*/, '')}
                 </div>
-                <span className="text-[10px] text-slate-400 block mt-0-5" style={{ fontSize: '9px' }}>
+                <span className="text-[10px] text-slate-400 block mt-0-5" style={{ fontSize: '9px', opacity: 0.85, whiteSpace: 'nowrap' }}>
                   {m.id === 'gmail' && '인계 의뢰'}
                   {m.id === 'calendar' && '교대 조율'}
                   {m.id === 'drive' && 'CPR 지침'}
@@ -344,6 +344,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   {m.id === 'sheets_basic' && '입원 관리'}
                   {m.id === 'slides' && '퇴원 교육'}
                   {m.id === 'classroom' && '평가 관리'}
+                  {!['gmail', 'calendar', 'drive', 'docs', 'sheets_basic', 'slides', 'classroom'].includes(m.id) && 
+                    (m.scenario.length > 9 ? m.scenario.substring(0, 8) + '..' : m.scenario)
+                  }
                 </span>
               </div>
             );
