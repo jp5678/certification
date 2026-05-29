@@ -27,6 +27,7 @@
   --slate-700: #334155;
   --slate-800: #1e293b;
   --slate-900: #0f172a;
+  --slate-950: #090d16;
   
   --red-50: #fef2f2;
   --red-100: #fee2e2;
@@ -102,9 +103,9 @@ html[data-theme='dark'] {
   /* Literal Tokens Override */
   --slate-50: #090d16;
   --slate-100: #1e293b;
-  --slate-200: #334155;
-  --slate-300: #475569;
-  --slate-400: #94a3b8;
+  --slate-200: #2d3748;
+  --slate-300: #4a5568;
+  --slate-400: #a0aec0;
   --slate-500: #cbd5e1;
   --slate-700: #f1f5f9;
   --slate-800: #f8fafc;
@@ -134,6 +135,36 @@ html[data-theme='dark'] {
     0 16px 32px rgba(0, 0, 0, 0.3);
 }
 
+/* ==========================================================
+   🚨 BLACK MODE GLOBAL UTILITY OVERRIDES (가독성 극대화 덮어쓰기)
+   ========================================================== */
+html[data-theme='dark'] .text-slate-800,
+html[data-theme='dark'] .text-slate-700,
+html[data-theme='dark'] .text-slate-650,
+html[data-theme='dark'] .text-blue-900,
+html[data-theme='dark'] .text-blue-950,
+html[data-theme='dark'] .logo-section h1,
+html[data-theme='dark'] h1,
+html[data-theme='dark'] h2,
+html[data-theme='dark'] h3:not(.card-badge-score):not(.card-badge-completed),
+html[data-theme='dark'] h4:not(.card-badge-score):not(.card-badge-completed) {
+  color: var(--slate-100) !important;
+}
+
+html[data-theme='dark'] .text-slate-500,
+html[data-theme='dark'] .text-slate-400 {
+  color: var(--slate-400) !important;
+}
+
+html[data-theme='dark'] .text-slate-600 {
+  color: var(--slate-300) !important;
+}
+
+html[data-theme='dark'] .text-teal-600,
+html[data-theme='dark'] .logo-section span[style*='var(--teal-600)'] {
+  color: var(--teal-400) !important;
+}
+
 /* 다크 테마에서 하드코딩된 white 배경 덮어쓰기 */
 html[data-theme='dark'] .summary-card,
 html[data-theme='dark'] .module-card,
@@ -156,6 +187,32 @@ html[data-theme='dark'] .filter-btn.active {
 html[data-theme='dark'] .glass {
   background: rgba(15, 23, 42, 0.8) !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* 웰컴 배너 프리미엄 다크 테마 */
+html[data-theme='dark'] .welcome-banner {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(13, 148, 136, 0.25) 100%) !important;
+  border-color: var(--slate-800) !important;
+}
+
+html[data-theme='dark'] .cert-widget-card {
+  background-color: rgba(15, 23, 42, 0.6) !important;
+  border-color: var(--slate-800) !important;
+}
+
+/* 실무 시나리오 박스 다크 테마 */
+html[data-theme='dark'] .scenario-box {
+  background-color: #05070c !important;
+  border-color: var(--slate-800) !important;
+}
+
+html[data-theme='dark'] .scenario-box p {
+  color: var(--slate-200) !important;
+}
+
+/* 헤더 보더라인 어두운 스킴 매핑 */
+html[data-theme='dark'] .header-container {
+  border-bottom: 1px solid var(--slate-800) !important;
 }
 
 /* 2. 전역 스타일 및 리셋 */
