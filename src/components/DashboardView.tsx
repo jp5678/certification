@@ -93,7 +93,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       <div className="summary-grid mb-8">
         
         {/* 카드 1: 전체 진도율 */}
-        <div className="summary-card shadow-premium">
+        <div className="summary-card shadow-premium hover-card" onClick={() => setCurrentTab('stats')}>
           <div className="icon-box-blue">
             <Icons.Percent size={24} />
           </div>
@@ -107,7 +107,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         </div>
 
         {/* 카드 2: 구글 워크스페이스 진도 */}
-        <div className="summary-card shadow-premium">
+        <div className="summary-card shadow-premium hover-card" onClick={() => setCurrentTab('stats')}>
           <div className="icon-box-indigo">
             <Icons.Laptop size={24} />
           </div>
@@ -121,7 +121,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         </div>
 
         {/* 카드 3: 구글 스프레드시트 진도 */}
-        <div className="summary-card shadow-premium">
+        <div className="summary-card shadow-premium hover-card" onClick={() => setCurrentTab('stats')}>
           <div className="icon-box-teal">
             <Icons.FileSpreadsheet size={24} />
           </div>
@@ -135,7 +135,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         </div>
 
         {/* 카드 4: 퀴즈 평균 점수 */}
-        <div className="summary-card shadow-premium">
+        <div className="summary-card shadow-premium hover-card" onClick={() => setCurrentTab('stats')}>
           <div className="icon-box-emerald">
             <Icons.HelpCircle size={24} />
           </div>
@@ -243,6 +243,78 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </div>
           );
         })}
+      </div>
+
+      {/* 5. 간호 임상 실무 로드맵 (Clinical Journey Roadmap) */}
+      <div className="roadmap-section mb-12">
+        <div className="roadmap-header">
+          <h3 className="text-lg font-bold flex items-center gap-2 text-slate-800" style={{ margin: 0 }}>
+            🩺 간호 임상 실무 자가학습 로드맵
+          </h3>
+          <p className="text-xs text-slate-400" style={{ margin: 0 }}>
+            환자 입원 수속부터 퇴원 및 외래 교육까지 이어지는 7단계 간호 임상 실무 흐름에 기반한 직관적인 학습 노선도입니다. (단계를 눌러 바로 학습할 수 있습니다)
+          </p>
+        </div>
+
+        <div className="roadmap-timeline-container">
+          {/* 타임라인 연결 선 */}
+          <div className="roadmap-line-bg"></div>
+          <div 
+            className="roadmap-line-progress" 
+            style={{ 
+              width: `${
+                progress.completedModules.length > 0 
+                  ? Math.min(((progress.completedModules.length - 1) / (STUDY_MODULES.length - 1)) * 100, 100) 
+                  : 0
+              }%` 
+            }}
+          ></div>
+
+          {STUDY_MODULES.map((m, idx) => {
+            const isCompleted = progress.completedModules.includes(m.id);
+            // 현재 학습해야 할 모듈: 아직 완료하지 않은 첫 번째 모듈이거나, 이전 모듈들이 완료된 상태
+            const isPrevCompleted = idx === 0 || progress.completedModules.includes(STUDY_MODULES[idx - 1].id);
+            const isActive = !isCompleted && isPrevCompleted;
+            const isLocked = !isCompleted && !isPrevCompleted;
+
+            let stepClass = 'roadmap-step-item';
+            if (isCompleted) stepClass += ' completed';
+            else if (isActive) stepClass += ' active';
+            else if (isLocked) stepClass += ' locked';
+
+            return (
+              <div 
+                key={m.id} 
+                className={stepClass}
+                onClick={() => onSelectModule(m.id)}
+                title={`${m.title}: ${m.scenario}`}
+              >
+                <div className="roadmap-node-circle">
+                  {isCompleted ? (
+                    <Icons.Check size={20} />
+                  ) : isLocked ? (
+                    <Icons.Lock size={16} />
+                  ) : (
+                    <span>{idx + 1}</span>
+                  )}
+                  {isActive && <div className="roadmap-pulse-ring"></div>}
+                </div>
+                <div className="roadmap-node-title">
+                  {m.title.replace(/^\d+\.\s*/, '')}
+                </div>
+                <span className="text-[10px] text-slate-400 block mt-0-5" style={{ fontSize: '9px' }}>
+                  {m.id === 'gmail' && '인계 의뢰'}
+                  {m.id === 'calendar' && '교대 조율'}
+                  {m.id === 'drive' && 'CPR 지침'}
+                  {m.id === 'docs' && '사례 연구'}
+                  {m.id === 'sheets_basic' && '입원 관리'}
+                  {m.id === 'slides' && '퇴원 교육'}
+                  {m.id === 'classroom' && '평가 관리'}
+                </span>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
     </div>
