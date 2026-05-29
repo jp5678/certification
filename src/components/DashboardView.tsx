@@ -9,6 +9,46 @@ interface DashboardViewProps {
   setCurrentTab: (tab: string) => void;
 }
 
+// Circular Progress 게이지 렌더러 헬퍼
+const renderCircularProgress = (percent: number, color: string, icon: React.ReactNode) => {
+  const r = 18;
+  const circ = 2 * Math.PI * r;
+  const offset = circ - (Math.min(percent, 100) / 100) * circ;
+
+  return (
+    <div className="relative flex items-center justify-center" style={{ width: '52px', height: '52px', flexShrink: 0 }}>
+      <svg className="transform -rotate-90" style={{ width: '52px', height: '52px', transform: 'rotate(-90deg)', position: 'absolute' }}>
+        <circle 
+          cx="26" 
+          cy="26" 
+          r={r} 
+          fill="transparent" 
+          stroke="var(--slate-100)" 
+          strokeWidth="3.5" 
+        />
+        <circle 
+          cx="26" 
+          cy="26" 
+          r={r} 
+          fill="transparent" 
+          stroke={color} 
+          strokeWidth="4.5" 
+          strokeDasharray={circ} 
+          strokeDashoffset={offset} 
+          strokeLinecap="round" 
+          style={{ 
+            transition: 'stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1)',
+            filter: `drop-shadow(0 0 3px ${color})`
+          }}
+        />
+      </svg>
+      <div style={{ zIndex: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', color: color }}>
+        {icon}
+      </div>
+    </div>
+  );
+};
+
 export const DashboardView: React.FC<DashboardViewProps> = ({
   progress,
   onSelectModule,
@@ -89,61 +129,55 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         </div>
       </div>
 
-      {/* 2. 핵심 학습 통계 카드 */}
+      {/* 2. 핵심 학습 통계 카드 (서큘러 게이지 형태로 전면 고도화) */}
       <div className="summary-grid mb-8">
         
         {/* 카드 1: 전체 진도율 */}
-        <div className="summary-card shadow-premium hover-card" onClick={() => setCurrentTab('stats')}>
-          <div className="icon-box-blue">
-            <Icons.Percent size={24} />
-          </div>
+        <div className="summary-card shadow-premium hover-card justify-between items-center" onClick={() => setCurrentTab('stats')} style={{ padding: '16px 20px' }}>
           <div className="flex-1">
-            <p className="text-sm text-slate-400 font-semibold mb-0-5">전체 학습 진도율</p>
-            <h3 className="text-2xl font-bold text-slate-800" style={{ margin: 0 }}>{totalProgressPercent}%</h3>
-            <div className="progress-track">
-              <div className="progress-fill-blue" style={{ width: `${totalProgressPercent}%` }}></div>
-            </div>
+            <p className="text-sm text-slate-400 font-semibold mb-1">전체 학습 진도율</p>
+            <h3 className="text-2xl font-black text-slate-800" style={{ margin: 0 }}>{totalProgressPercent}%</h3>
+            <p className="text-xs text-slate-400" style={{ fontSize: '10px', marginTop: '4px', margin: 0 }}>
+              전체 코스 대비 이수 완료율
+            </p>
           </div>
+          {renderCircularProgress(totalProgressPercent, 'var(--blue-600)', <Icons.Percent size={20} />)}
         </div>
 
-        {/* 카드 2: 구글 워크스페이스 진도 */}
-        <div className="summary-card shadow-premium hover-card" onClick={() => setCurrentTab('stats')}>
-          <div className="icon-box-indigo">
-            <Icons.Laptop size={24} />
-          </div>
+        {/* 카드 2: 구글 Workspace 진도 */}
+        <div className="summary-card shadow-premium hover-card justify-between items-center" onClick={() => setCurrentTab('stats')} style={{ padding: '16px 20px' }}>
           <div className="flex-1">
-            <p className="text-sm text-slate-400 font-semibold mb-0-5">Workspace 에듀케이션</p>
-            <h3 className="text-2xl font-bold text-slate-800" style={{ margin: 0 }}>{completedWorkspaceCount} / {workspaceModules.length} 완료</h3>
-            <div className="progress-track">
-              <div className="progress-fill-indigo" style={{ width: `${workspaceProgressPercent}%` }}></div>
-            </div>
+            <p className="text-sm text-slate-400 font-semibold mb-1">Workspace 에듀케이션</p>
+            <h3 className="text-2xl font-black text-slate-800" style={{ margin: 0 }}>{completedWorkspaceCount} / {workspaceModules.length} 완료</h3>
+            <p className="text-xs text-slate-400" style={{ fontSize: '10px', marginTop: '4px', margin: 0 }}>
+              진행 상태 ({workspaceProgressPercent}% 완료)
+            </p>
           </div>
+          {renderCircularProgress(workspaceProgressPercent, '#6366f1', <Icons.Laptop size={20} />)}
         </div>
 
         {/* 카드 3: 구글 스프레드시트 진도 */}
-        <div className="summary-card shadow-premium hover-card" onClick={() => setCurrentTab('stats')}>
-          <div className="icon-box-teal">
-            <Icons.FileSpreadsheet size={24} />
-          </div>
+        <div className="summary-card shadow-premium hover-card justify-between items-center" onClick={() => setCurrentTab('stats')} style={{ padding: '16px 20px' }}>
           <div className="flex-1">
-            <p className="text-sm text-slate-400 font-semibold mb-0-5">스프레드시트 기능 마스터</p>
-            <h3 className="text-2xl font-bold text-slate-800" style={{ margin: 0 }}>{completedSheetsCount} / {sheetsModules.length} 완료</h3>
-            <div className="progress-track">
-              <div className="progress-fill-teal" style={{ width: `${sheetsProgressPercent}%` }}></div>
-            </div>
+            <p className="text-sm text-slate-400 font-semibold mb-1">스프레드시트 기능 마스터</p>
+            <h3 className="text-2xl font-black text-slate-800" style={{ margin: 0 }}>{completedSheetsCount} / {sheetsModules.length} 완료</h3>
+            <p className="text-xs text-slate-400" style={{ fontSize: '10px', marginTop: '4px', margin: 0 }}>
+              진행 상태 ({sheetsProgressPercent}% 완료)
+            </p>
           </div>
+          {renderCircularProgress(sheetsProgressPercent, 'var(--teal-500)', <Icons.FileSpreadsheet size={20} />)}
         </div>
 
         {/* 카드 4: 퀴즈 평균 점수 */}
-        <div className="summary-card shadow-premium hover-card" onClick={() => setCurrentTab('stats')}>
-          <div className="icon-box-emerald">
-            <Icons.HelpCircle size={24} />
-          </div>
+        <div className="summary-card shadow-premium hover-card justify-between items-center" onClick={() => setCurrentTab('stats')} style={{ padding: '16px 20px' }}>
           <div className="flex-1">
-            <p className="text-sm text-slate-400 font-semibold mb-0-5">평균 퀴즈 성적</p>
-            <h3 className="text-2xl font-bold text-slate-800" style={{ margin: 0 }}>{quizAverage}점</h3>
-            <p className="text-xs text-slate-400 font-normal" style={{ fontSize: '10px', marginTop: '4px', margin: 0 }}>응시한 퀴즈 {quizScores.length}개 기준</p>
+            <p className="text-sm text-slate-400 font-semibold mb-1">평균 퀴즈 성적</p>
+            <h3 className="text-2xl font-black text-slate-800" style={{ margin: 0 }}>{quizAverage}점</h3>
+            <p className="text-xs text-slate-400" style={{ fontSize: '10px', marginTop: '4px', margin: 0 }}>
+              응시한 퀴즈 {quizScores.length}개 기준
+            </p>
           </div>
+          {renderCircularProgress(quizAverage, 'var(--emerald-500)', <Icons.HelpCircle size={20} />)}
         </div>
 
       </div>

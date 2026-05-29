@@ -376,7 +376,7 @@ export const StatsView: React.FC<StatsViewProps> = ({
             </div>
             <h4 className="text-xs font-black mb-1" style={{ margin: '4px 0' }}>모든 자가학습 코스 이수 완료</h4>
             <p className="text-[11px] leading-relaxed" style={{ opacity: 0.85, margin: 0 }}>
-              전체 7개 학습 모듈의 설명과 핵심 실무 단계를 모두 정독하고 학습 완료를 클릭해야 합니다.
+              전체 {totalCount}개 학습 모듈의 설명과 핵심 실무 단계를 모두 정독하고 학습 완료를 클릭해야 합니다.
             </p>
             <div className="mt-3 text-xs font-bold">
               진행 상태: {completedCount} / {totalCount}개 완료 ({completedPercent}% 완료)
