@@ -86,7 +86,7 @@ function App() {
     }
 
     // 가상 페이지 뷰 데이터 전송
-    window.gtag('config', 'G-XXXXXXXXXX', {
+    window.gtag('config', 'G-ELL5CEKB7J', {
       page_path: pagePath,
       page_title: pageTitle,
     });
